@@ -1,609 +1,281 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Mauricio Goulart — Dev</title>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
-<style>
-:root {
-  --lime:#B9FF66;
-  --black:#0D0D0D;
-  --surface:#141414;
-  --card:#1C1C1C;
-  --white:#F0F0F0;
-  --mid:#888;
-  --border-lime:2px solid #B9FF66;
-  --border-white:2px solid rgba(255,255,255,0.12);
-  --shadow:5px 5px 0 #B9FF66;
-  --f:  'Space Grotesk',sans-serif;
-  --fm: 'DM Mono',monospace;
-}
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-html{scroll-behavior:smooth;}
-body{font-family:var(--f);background:var(--black);color:var(--white);overflow-x:hidden;}
-a{color:inherit;text-decoration:none;}
-
-/* ── SCROLLBAR ─────────── */
-::-webkit-scrollbar{width:6px;}
-::-webkit-scrollbar-track{background:#000;}
-::-webkit-scrollbar-thumb{background:var(--lime);border-radius:0;}
-
-/* ── NAV ─────────────────────────────────────────────────────────────── */
-nav{
-  position:sticky;top:0;z-index:99;
-  display:flex;align-items:center;justify-content:space-between;
-  padding:0 2.5rem;height:52px;
-  background:var(--black);
-  border-bottom:1px solid rgba(255,255,255,0.08);
-}
-.nav-logo{font-family:var(--fm);font-size:.8rem;color:var(--lime);letter-spacing:.1em;}
-.nav-links{display:flex;gap:2rem;}
-.nav-links a{
-  font-family:var(--fm);font-size:.7rem;letter-spacing:.12em;
-  text-transform:uppercase;color:var(--mid);
-  transition:color .15s;
-}
-.nav-links a:hover{color:var(--lime);}
-
-/* ── TICKER ───────────────────────────────────────────────────────────── */
-.ticker{
-  background:var(--lime);color:var(--black);
-  overflow:hidden;white-space:nowrap;
-  border-bottom:2px solid var(--black);
-  padding:9px 0;
-}
-.ticker-inner{
-  display:inline-block;
-  animation:tick 30s linear infinite;
-  font-family:var(--fm);font-size:.72rem;font-weight:500;letter-spacing:.1em;
-}
-.ticker-inner span{margin:0 2.5rem;}
-@keyframes tick{from{transform:translateX(0);}to{transform:translateX(-50%);}}
-
-/* ── HERO ─────────────────────────────────────────────────────────────── */
-#hero{
-  min-height:calc(100vh - 52px - 36px);
-  display:grid;grid-template-rows:1fr auto;
-  padding:4rem 2.5rem 3rem;
-  position:relative;
-  border-bottom:1px solid rgba(255,255,255,0.08);
-}
-.hero-main{display:flex;flex-direction:column;justify-content:center;}
-.hero-tag{
-  font-family:var(--fm);font-size:.72rem;color:var(--lime);
-  letter-spacing:.14em;text-transform:uppercase;margin-bottom:1.5rem;
-  display:flex;align-items:center;gap:.75rem;
-}
-.hero-tag::before{content:'';width:32px;height:2px;background:var(--lime);}
-.hero-name{
-  font-size:clamp(5rem,12vw,11rem);
-  font-weight:800;line-height:.88;letter-spacing:-.04em;
-  color:var(--white);
-}
-.hero-name .accent{color:var(--lime);}
-.hero-bottom{
-  display:flex;justify-content:space-between;align-items:flex-end;
-  flex-wrap:wrap;gap:1.5rem;margin-top:3rem;
-}
-.hero-desc{
-  max-width:480px;font-size:1rem;line-height:1.7;
-  color:rgba(240,240,240,.6);font-weight:400;
-}
-.hero-desc strong{color:var(--white);}
-.hero-ctas{display:flex;gap:1rem;flex-wrap:wrap;align-items:center;}
-.btn{
-  display:inline-flex;align-items:center;gap:.5rem;
-  font-family:var(--fm);font-size:.72rem;font-weight:500;
-  letter-spacing:.1em;text-transform:uppercase;
-  padding:.75rem 1.4rem;
-  border:var(--border-lime);
-  transition:background .12s,color .12s,transform .1s,box-shadow .1s;
-  cursor:pointer;
-}
-.btn-fill{background:var(--lime);color:var(--black);}
-.btn-fill:hover{background:transparent;color:var(--lime);}
-.btn-outline{background:transparent;color:var(--lime);}
-.btn-outline:hover{background:var(--lime);color:var(--black);}
-.btn:active{transform:translate(2px,2px);}
-
-/* ── STATUS BADGE ─────────────────────────────────────────────────────── */
-.status-badge{
-  display:inline-flex;align-items:center;gap:.5rem;
-  font-family:var(--fm);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;
-  color:var(--lime);
-}
-.status-dot{
-  width:7px;height:7px;border-radius:50%;
-  background:var(--lime);
-  animation:pulse 2s ease-in-out infinite;
-}
-@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.3;}}
-
-/* ── SECTION ──────────────────────────────────────────────────────────── */
-.section{padding:5rem 2.5rem;border-bottom:1px solid rgba(255,255,255,0.08);}
-.sec-head{
-  display:flex;align-items:baseline;gap:1.5rem;
-  margin-bottom:3.5rem;
-}
-.sec-num{
-  font-family:var(--fm);font-size:.7rem;color:var(--lime);
-  letter-spacing:.1em;flex-shrink:0;
-}
-.sec-title{
-  font-size:clamp(1.8rem,4vw,2.8rem);font-weight:800;
-  letter-spacing:-.03em;line-height:1;
-}
-.sec-line{
-  flex:1;height:1px;background:rgba(255,255,255,0.1);
-  align-self:center;
-}
-
-/* ── ABOUT ────────────────────────────────────────────────────────────── */
-#about{background:var(--surface);}
-.about-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:4rem;align-items:start;}
-.about-text{font-size:1.05rem;line-height:1.8;color:rgba(240,240,240,.7);}
-.about-text strong{color:var(--white);}
-.about-text p+p{margin-top:1.2rem;}
-.about-facts{display:flex;flex-direction:column;gap:0;}
-.fact{
-  display:flex;justify-content:space-between;align-items:center;
-  padding:.9rem 0;border-bottom:1px solid rgba(255,255,255,0.08);
-  font-size:.85rem;
-}
-.fact:first-child{border-top:1px solid rgba(255,255,255,0.08);}
-.fact-k{font-family:var(--fm);font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;color:var(--mid);}
-.fact-v{font-weight:600;color:var(--white);}
-.fact-v.lime{color:var(--lime);}
-
-/* ── SKILLS ───────────────────────────────────────────────────────────── */
-#skills{background:var(--black);}
-.skills-wrapper{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1px;border:1px solid rgba(255,255,255,0.08);}
-.skill-group{
-  padding:2rem;
-  border-right:1px solid rgba(255,255,255,0.08);
-  transition:background .15s;
-}
-.skill-group:hover{background:var(--surface);}
-.skill-group:last-child{border-right:none;}
-.skill-group-name{
-  font-family:var(--fm);font-size:.65rem;letter-spacing:.14em;
-  text-transform:uppercase;color:var(--mid);margin-bottom:1.25rem;
-}
-.skill-list{display:flex;flex-direction:column;gap:.5rem;}
-.skill-item{
-  display:flex;align-items:center;gap:.75rem;
-  font-size:.9rem;font-weight:500;color:var(--white);
-}
-.skill-item::before{
-  content:'';width:6px;height:6px;
-  border:1.5px solid var(--lime);border-radius:50%;
-  flex-shrink:0;
-}
-.skill-item.main::before{background:var(--lime);}
-
-/* ── EXPERIENCE ───────────────────────────────────────────────────────── */
-#experience{background:var(--surface);}
-.exp-block{
-  border:var(--border-lime);
-  padding:2.5rem;
-  position:relative;
-  overflow:hidden;
-}
-.exp-block::before{
-  content:'AUTAZA';
-  position:absolute;right:-1rem;top:50%;
-  transform:translateY(-50%) rotate(90deg);
-  font-size:5rem;font-weight:800;
-  color:rgba(185,255,102,.04);
-  letter-spacing:.1em;
-  pointer-events:none;user-select:none;
-}
-.exp-top{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:1rem;margin-bottom:.5rem;}
-.exp-role{font-size:1.4rem;font-weight:800;letter-spacing:-.02em;}
-.exp-period{
-  font-family:var(--fm);font-size:.68rem;letter-spacing:.1em;
-  color:var(--lime);border:var(--border-lime);padding:.3rem .8rem;
-  white-space:nowrap;align-self:flex-start;
-}
-.exp-company{
-  font-family:var(--fm);font-size:.75rem;color:var(--mid);
-  letter-spacing:.06em;margin-bottom:2rem;
-}
-.exp-items{display:flex;flex-direction:column;gap:.9rem;}
-.exp-item{
-  display:grid;grid-template-columns:20px 1fr;gap:.75rem;
-  font-size:.93rem;line-height:1.65;color:rgba(240,240,240,.75);
-}
-.exp-item-arrow{color:var(--lime);font-weight:700;margin-top:1px;}
-.exp-tags{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:2rem;padding-top:1.5rem;border-top:1px solid rgba(255,255,255,0.08);}
-.tag{
-  font-family:var(--fm);font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;
-  padding:.25rem .6rem;border:1px solid rgba(255,255,255,0.15);color:var(--mid);
-}
-
-/* ── PROJECTS ─────────────────────────────────────────────────────────── */
-#projects{background:var(--black);}
-.proj-list{display:flex;flex-direction:column;gap:1.5rem;}
-.proj-card{
-  display:grid;grid-template-columns:1fr 1fr;
-  border:1px solid rgba(255,255,255,0.1);
-  transition:border-color .2s,box-shadow .2s,transform .15s;
-}
-.proj-card:hover{
-  border-color:var(--lime);
-  box-shadow:var(--shadow);
-  transform:translate(-2px,-2px);
-}
-.proj-left{padding:2.5rem;border-right:1px solid rgba(255,255,255,0.08);}
-.proj-right{padding:2.5rem;background:var(--surface);display:flex;flex-direction:column;justify-content:space-between;}
-.proj-num{font-family:var(--fm);font-size:.65rem;letter-spacing:.14em;color:var(--mid);margin-bottom:.5rem;}
-.proj-name{font-size:1.8rem;font-weight:800;letter-spacing:-.03em;margin-bottom:1rem;line-height:1.1;}
-.proj-name .lime{color:var(--lime);}
-.proj-stack{font-family:var(--fm);font-size:.7rem;color:var(--mid);letter-spacing:.06em;margin-bottom:1.5rem;}
-.proj-desc{font-size:.92rem;line-height:1.7;color:rgba(240,240,240,.65);}
-.proj-links{display:flex;gap:.75rem;flex-wrap:wrap;margin-top:auto;}
-.proj-link{
-  font-family:var(--fm);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;
-  padding:.5rem 1rem;border:var(--border-lime);color:var(--lime);
-  transition:background .12s,color .12s;
-  display:inline-flex;align-items:center;gap:.4rem;
-}
-.proj-link:hover{background:var(--lime);color:var(--black);}
-.proj-badge{
-  font-family:var(--fm);font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;
-  padding:.25rem .65rem;border:1px solid rgba(185,255,102,.4);color:var(--lime);
-  display:inline-block;margin-top:1rem;
-}
-
-/* ── EDUCATION ────────────────────────────────────────────────────────── */
-#education{background:var(--surface);}
-.edu-list{display:flex;flex-direction:column;gap:0;}
-.edu-item{
-  display:grid;grid-template-columns:160px 1fr;
-  padding:2rem 0;border-bottom:1px solid rgba(255,255,255,0.08);
-  gap:2rem;
-}
-.edu-item:first-child{border-top:1px solid rgba(255,255,255,0.08);}
-.edu-year{
-  font-family:var(--fm);font-size:.7rem;color:var(--mid);
-  letter-spacing:.08em;padding-top:3px;
-}
-.edu-degree{font-size:1rem;font-weight:700;margin-bottom:.3rem;}
-.edu-school{font-size:.85rem;color:var(--mid);}
-
-/* ── CONTACT ──────────────────────────────────────────────────────────── */
-#contact{
-  background:var(--lime);color:var(--black);
-  padding:5rem 2.5rem;
-  border-bottom:none;
-}
-#contact .sec-title{color:var(--black);}
-#contact .sec-num{color:rgba(0,0,0,.4);}
-#contact .sec-line{background:rgba(0,0,0,.15);}
-.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;}
-.contact-cta{
-  font-size:clamp(2rem,4vw,3.2rem);font-weight:800;
-  letter-spacing:-.04em;line-height:1.05;
-}
-.contact-cta span{text-decoration:underline;text-decoration-thickness:3px;}
-.contact-links{display:flex;flex-direction:column;gap:.75rem;}
-.c-link{
-  display:flex;justify-content:space-between;align-items:center;
-  padding:1.1rem 1.25rem;
-  background:var(--black);color:var(--white);
-  border:2px solid var(--black);
-  transition:background .12s,color .12s,transform .1s,box-shadow .1s;
-}
-.c-link:hover{
-  background:transparent;color:var(--black);
-  transform:translate(-2px,-2px);
-  box-shadow:5px 5px 0 var(--black);
-}
-.c-link-left{display:flex;flex-direction:column;gap:2px;}
-.c-link-label{font-family:var(--fm);font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;opacity:.5;}
-.c-link-val{font-weight:600;font-size:.9rem;}
-.c-link-arrow{font-size:1.1rem;opacity:.7;}
-
-/* ── FOOTER ───────────────────────────────────────────────────────────── */
-footer{
-  background:var(--black);
-  border-top:1px solid rgba(255,255,255,0.08);
-  padding:1.25rem 2.5rem;
-  display:flex;justify-content:space-between;align-items:center;
-  font-family:var(--fm);font-size:.65rem;letter-spacing:.1em;color:var(--mid);
-}
-footer span.lime{color:var(--lime);}
-
-/* ── REVEAL ───────────────────────────────────────────────────────────── */
-[data-reveal]{opacity:0;transform:translateY(20px);transition:opacity .5s ease,transform .5s ease;}
-[data-reveal].on{opacity:1;transform:none;}
-
-/* ── RESPONSIVE ───────────────────────────────────────────────────────── */
-@media(max-width:800px){
-  .about-grid,.proj-card,.contact-grid{grid-template-columns:1fr;}
-  .proj-left{border-right:none;border-bottom:1px solid rgba(255,255,255,0.08);}
-  .edu-item{grid-template-columns:1fr;gap:.5rem;}
-  .hero-name{font-size:clamp(4rem,16vw,7rem);}
-  .nav-links{display:none;}
-  .section{padding:3.5rem 1.5rem;}
-  nav,footer,#hero{padding-left:1.5rem;padding-right:1.5rem;}
-  #contact{padding:3.5rem 1.5rem;}
-  .skills-wrapper{grid-template-columns:1fr;}
-  .skill-group{border-right:none;border-bottom:1px solid rgba(255,255,255,0.08);}
-}
-</style>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mauricio Goulart — Dev</title>
+  
+  <!-- Fontes -->
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  
+  <!-- Estilos Externos -->
+  <link rel="stylesheet" href="assets/css/style.css"/>
 </head>
 <body>
 
-<!-- NAV -->
-<nav>
-  <span class="nav-logo">MG.DEV</span>
-  <div class="nav-links">
-    <a href="#about">Sobre</a>
-    <a href="#skills">Skills</a>
-    <a href="#experience">Exp</a>
-    <a href="#projects">Projetos</a>
-    <a href="#contact">Contato</a>
-  </div>
-</nav>
+  <!-- NAV -->
+  <nav>
+    <span class="nav-logo">MG.DEV</span>
+    <div class="nav-links">
+      <a href="#about">Sobre</a>
+      <a href="#skills">Skills</a>
+      <a href="#experience">Exp</a>
+      <a href="#projects">Projetos</a>
+      <a href="#contact">Contato</a>
+    </div>
+  </nav>
 
-<!-- TICKER -->
-<div class="ticker" aria-hidden="true">
-  <div class="ticker-inner">
-    <span>PYTHON</span><span>FASTAPI</span><span>KOTLIN</span><span>OPENCV</span><span>YOLOV8</span><span>ARDUINO</span><span>GIT</span><span>LINUX</span><span>IOT</span><span>BACK-END</span><span>IA</span><span>VISÃO COMPUTACIONAL</span><span>EMBARCADO</span><span>ANDROID</span><span>SQL</span>
-    <span>PYTHON</span><span>FASTAPI</span><span>KOTLIN</span><span>OPENCV</span><span>YOLOV8</span><span>ARDUINO</span><span>GIT</span><span>LINUX</span><span>IOT</span><span>BACK-END</span><span>IA</span><span>VISÃO COMPUTACIONAL</span><span>EMBARCADO</span><span>ANDROID</span><span>SQL</span>
-  </div>
-</div>
-
-<!-- HERO -->
-<section id="hero">
-  <div class="hero-main">
-    <div class="hero-tag">Desenvolvedor Back-End & IA · São José dos Campos, SP</div>
-    <h1 class="hero-name">
-      MAURI<br>CIO<br><span class="accent">GOULART</span>
-    </h1>
-  </div>
-  <div class="hero-bottom">
-    <p class="hero-desc">Construo software que vai pra <strong>produção</strong>. Python, Kotlin, visão computacional e IoT — do código ao deploy. Primeiro estágio com app real entregue na <strong>Autaza</strong>.</p>
-    <div class="hero-ctas">
-      <div class="status-badge"><span class="status-dot"></span>Disponível para trabalhar</div>
-      <a href="#projects" class="btn btn-fill">Ver projetos →</a>
-      <a href="#contact" class="btn btn-outline">Contato</a>
+  <!-- TICKER -->
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker-inner">
+      <span>PYTHON</span><span>FASTAPI</span><span>KOTLIN</span><span>SWIFT</span><span>OPENCV</span><span>YOLOV8</span><span>PLAYWRIGHT</span><span>ARDUINO</span><span>LINUX</span><span>IOT</span><span>BACK-END</span><span>IA</span><span>EMBARCADO</span><span>ANDROID</span><span>IOS</span>
+      <span>PYTHON</span><span>FASTAPI</span><span>KOTLIN</span><span>SWIFT</span><span>OPENCV</span><span>YOLOV8</span><span>PLAYWRIGHT</span><span>ARDUINO</span><span>LINUX</span><span>IOT</span><span>BACK-END</span><span>IA</span><span>EMBARCADO</span><span>ANDROID</span><span>IOS</span>
     </div>
   </div>
-</section>
 
-<!-- ABOUT -->
-<section id="about" class="section">
-  <div class="sec-head">
-    <span class="sec-num">01</span>
-    <h2 class="sec-title">Sobre</h2>
-    <div class="sec-line"></div>
-  </div>
-  <div class="about-grid" data-reveal>
-    <div class="about-text">
-      <p>Desenvolvedor com <strong>experiência real em produção</strong>. No meu estágio na Autaza fui responsável pelo <strong>Autaza Color</strong> — app Android integrado com sistema embarcado — desenvolvido do zero até o deploy em ambiente real.</p>
-      <p>Estudo Ciência da Computação na <strong>Unifesp (ICT)</strong>. Gosto de projetos que cruzam software com o mundo físico: IoT, visão computacional, sistemas embarcados. Python é minha linguagem principal; Kotlin pra mobile.</p>
-      <p>Busco <strong>estágio ou vaga júnior</strong> em back-end, dados ou IA.</p>
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-main">
+      <div class="hero-tag">Desenvolvedor Back-End, IA & IoT · São José dos Campos, SP</div>
+      <h1 class="hero-name">
+        MAURI<br>CIO<br><span class="accent">GOULART</span>
+      </h1>
     </div>
-    <div class="about-facts">
-      <div class="fact"><span class="fact-k">Status</span><span class="fact-v lime">🟢 Open to work</span></div>
-      <div class="fact"><span class="fact-k">Localização</span><span class="fact-v">São José dos Campos, SP</span></div>
-      <div class="fact"><span class="fact-k">Formação</span><span class="fact-v">Unifesp ICT — 2027</span></div>
-      <div class="fact"><span class="fact-k">Foco</span><span class="fact-v">Back-end · IA · IoT</span></div>
-      <div class="fact"><span class="fact-k">Modalidade</span><span class="fact-v">Presencial · Híbrido · Remoto</span></div>
-      <div class="fact"><span class="fact-k">Inglês</span><span class="fact-v">Técnico</span></div>
-    </div>
-  </div>
-</section>
-
-<!-- SKILLS -->
-<section id="skills" class="section">
-  <div class="sec-head">
-    <span class="sec-num">02</span>
-    <h2 class="sec-title">Skills</h2>
-    <div class="sec-line"></div>
-  </div>
-  <div class="skills-wrapper" data-reveal>
-    <div class="skill-group">
-      <div class="skill-group-name">Linguagens</div>
-      <div class="skill-list">
-        <div class="skill-item main">Python</div>
-        <div class="skill-item main">Kotlin</div>
-        <div class="skill-item">C / C++</div>
-        <div class="skill-item">JavaScript</div>
-        <div class="skill-item">Bash</div>
+    <div class="hero-bottom">
+      <p class="hero-desc">Construo software que vai pra <strong>produção</strong>. Python, Kotlin, Swift, visão computacional e IoT — do código ao deploy. Experiência real entregando soluções de ponta a ponta na <strong>Autaza</strong>.</p>
+      <div class="hero-ctas">
+        <div class="status-badge"><span class="status-dot"></span>Disponível para trabalhar</div>
+        <a href="#projects" class="btn btn-fill">Ver projetos →</a>
+        <a href="#contact" class="btn btn-outline">Contato</a>
       </div>
     </div>
-    <div class="skill-group">
-      <div class="skill-group-name">IA / Dados / Visão</div>
-      <div class="skill-list">
-        <div class="skill-item main">OpenCV</div>
-        <div class="skill-item main">PyTorch</div>
-        <div class="skill-item main">YOLOv8</div>
-        <div class="skill-item">NumPy · Pandas</div>
-        <div class="skill-item">Scikit-learn</div>
-        <div class="skill-item">K-Means</div>
-      </div>
-    </div>
-    <div class="skill-group">
-      <div class="skill-group-name">Back-end</div>
-      <div class="skill-list">
-        <div class="skill-item main">FastAPI</div>
-        <div class="skill-item main">Flask</div>
-        <div class="skill-item">REST APIs</div>
-        <div class="skill-item">SQL · SQLite</div>
-      </div>
-    </div>
-    <div class="skill-group">
-      <div class="skill-group-name">Ferramentas</div>
-      <div class="skill-list">
-        <div class="skill-item main">Git · GitHub</div>
-        <div class="skill-item">Linux</div>
-        <div class="skill-item">Arduino</div>
-        <div class="skill-item">Raspberry Pi</div>
-        <div class="skill-item">VS Code</div>
-      </div>
-    </div>
-  </div>
-</section>
+  </section>
 
-<!-- EXPERIENCE -->
-<section id="experience" class="section">
-  <div class="sec-head">
-    <span class="sec-num">03</span>
-    <h2 class="sec-title">Experiência</h2>
-    <div class="sec-line"></div>
-  </div>
-  <div class="exp-block" data-reveal>
-    <div class="exp-top">
-      <div class="exp-role">Desenvolvedor de Software</div>
-      <div class="exp-period">nov. 2023 – mar. 2024</div>
+  <!-- ABOUT -->
+  <section id="about" class="section">
+    <div class="sec-head">
+      <span class="sec-num">01</span>
+      <h2 class="sec-title">Sobre</h2>
+      <div class="sec-line"></div>
     </div>
-    <div class="exp-company">Autaza · São José dos Campos, SP · Híbrido · Estágio</div>
-    <div class="exp-items">
-      <div class="exp-item"><span class="exp-item-arrow">→</span><span>Desenvolvi do zero até produção o <strong style="color:#fff">Autaza Color</strong>: um colorímetro embarcado (Raspberry Pi) para leitura e receituário automático de cores de tinta.</span></div>
-      <div class="exp-item"><span class="exp-item-arrow">→</span><span>Captura de cor via câmera e sensor óptico TCS3472 (I2C), com controle de LEDs de iluminação para padronizar a leitura.</span></div>
-      <div class="exp-item"><span class="exp-item-arrow">→</span><span>Rede neural autoencoder (PyTorch) treinada para calibrar/corrigir a leitura bruta de RGB do sensor e da câmera.</span></div>
-      <div class="exp-item"><span class="exp-item-arrow">→</span><span>Algoritmo genético (DEAP) que gera receitas de tinta automaticamente a partir de uma paleta de bases, minimizando o Delta E no espaço L*a*b*.</span></div>
-      <div class="exp-item"><span class="exp-item-arrow">→</span><span>API REST (Flask) orquestrando sensor, câmera, modelo de IA e motor de receituário, consumida pelo app Android (Kotlin + OpenCV).</span></div>
-      <div class="exp-item"><span class="exp-item-arrow">→</span><span>Ciclo completo de desenvolvimento — da implementação ao deploy em ambiente real com usuários.</span></div>
-    </div>
-    <div class="exp-tags">
-      <span class="tag">Kotlin</span>
-      <span class="tag">Python</span>
-      <span class="tag">PyTorch</span>
-      <span class="tag">Flask</span>
-      <span class="tag">DEAP</span>
-      <span class="tag">Android</span>
-      <span class="tag">IoT</span>
-      <span class="tag">Raspberry Pi</span>
-      <span class="tag">Embarcado</span>
-      <span class="tag">Git</span>
-    </div>
-  </div>
-</section>
-
-<!-- PROJECTS -->
-<section id="projects" class="section">
-  <div class="sec-head">
-    <span class="sec-num">04</span>
-    <h2 class="sec-title">Projetos</h2>
-    <div class="sec-line"></div>
-  </div>
-  <div class="proj-list" data-reveal>
-
-    <div class="proj-card">
-      <div class="proj-left">
-        <div class="proj-num">01 / Projeto</div>
-        <div class="proj-name">Vision<br><span class="lime">API</span></div>
-        <div class="proj-stack">Python · FastAPI · YOLOv8 · OpenCV · Render</div>
-        <p class="proj-desc">API REST que recebe qualquer imagem e retorna objetos detectados com % de confiança (YOLOv8) e as 3 cores dominantes em HEX/RGB usando K-Means com OpenCV.</p>
+    <div class="about-grid" data-reveal>
+      <div class="about-text">
+        <p>Desenvolvedor com <strong>experiência real em produção</strong>. No meu estágio na Autaza, desenvolvi do zero o <strong>Autaza Color</strong> — um colorímetro embarcado integrado a IA, com app Android e receituário automático de tintas.</p>
+        <p>Estudo Ciência da Computação na <strong>Unifesp (ICT)</strong>. Gosto de projetos que cruzam software com o mundo físico: IoT, visão computacional, sistemas embarcados. Minha base principal é Python (Back-end/IA), mas também desenvolvo interfaces nativas (Kotlin/SwiftUI) e automações.</p>
+        <p>Busco <strong>estágio ou vaga júnior</strong> nas áreas de Back-end, Dados, IA ou Automação.</p>
       </div>
-      <div class="proj-right">
+      <div class="about-facts">
+        <div class="fact"><span class="fact-k">Status</span><span class="fact-v lime">🟢 Open to work</span></div>
+        <div class="fact"><span class="fact-k">Localização</span><span class="fact-v">São José dos Campos, SP</span></div>
+        <div class="fact"><span class="fact-k">Formação</span><span class="fact-v">Unifesp ICT — 2027</span></div>
+        <div class="fact"><span class="fact-k">Foco</span><span class="fact-v">Back-end · IA · IoT</span></div>
+        <div class="fact"><span class="fact-k">Modalidade</span><span class="fact-v">Presencial · Híbrido · Remoto</span></div>
+        <div class="fact"><span class="fact-k">Inglês</span><span class="fact-v">Avançado</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills" class="section">
+    <div class="sec-head">
+      <span class="sec-num">02</span>
+      <h2 class="sec-title">Skills</h2>
+      <div class="sec-line"></div>
+    </div>
+    <div class="skills-wrapper" data-reveal>
+      <div class="skill-group">
+        <div class="skill-group-name">Linguagens</div>
+        <div class="skill-list">
+          <div class="skill-item main">Python</div>
+          <div class="skill-item main">Kotlin</div>
+          <div class="skill-item main">Swift</div>
+          <div class="skill-item">C / C++</div>
+          <div class="skill-item">JavaScript · Bash</div>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-name">IA & Dados</div>
+        <div class="skill-list">
+          <div class="skill-item main">PyTorch</div>
+          <div class="skill-item main">OpenCV</div>
+          <div class="skill-item main">YOLOv8</div>
+          <div class="skill-item">NumPy · Pandas</div>
+          <div class="skill-item">Scikit-learn</div>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-name">Back-end & Automação</div>
+        <div class="skill-list">
+          <div class="skill-item main">FastAPI · Flask</div>
+          <div class="skill-item main">Playwright</div>
+          <div class="skill-item">REST APIs</div>
+          <div class="skill-item">SQL · SQLite</div>
+          <div class="skill-item">ngrok</div>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-name">Ferramentas / Outros</div>
+        <div class="skill-list">
+          <div class="skill-item main">Git · GitHub</div>
+          <div class="skill-item main">SwiftUI</div>
+          <div class="skill-item">Linux</div>
+          <div class="skill-item">Arduino</div>
+          <div class="skill-item">Raspberry Pi</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience" class="section">
+    <div class="sec-head">
+      <span class="sec-num">03</span>
+      <h2 class="sec-title">Experiência</h2>
+      <div class="sec-line"></div>
+    </div>
+    <div class="exp-block" data-reveal>
+      <div class="exp-top">
+        <div class="exp-role">Desenvolvedor de Software</div>
+        <div class="exp-period">nov. 2023 – mar. 2024</div>
+      </div>
+      <div class="exp-company">Autaza · São José dos Campos, SP · Híbrido · Estágio</div>
+      <div class="exp-items">
+        <div class="exp-item"><span class="exp-item-arrow">→</span><span>Desenvolvi do zero até produção o <strong style="color:#fff">Autaza Color</strong>: um colorímetro embarcado (Raspberry Pi) para leitura e receituário automático de cores de tinta.</span></div>
+        <div class="exp-item"><span class="exp-item-arrow">→</span><span>Captura de cor via câmera e sensor óptico TCS3472 (I2C), com controle de LEDs de iluminação para padronizar a leitura.</span></div>
+        <div class="exp-item"><span class="exp-item-arrow">→</span><span>Treinei e integrei rede neural autoencoder (PyTorch) para calibrar e corrigir a leitura bruta de RGB do sensor e da câmera.</span></div>
+        <div class="exp-item"><span class="exp-item-arrow">→</span><span>Desenvolvi algoritmo genético (DEAP) para gerar receitas de tinta automaticamente, minimizando o Delta E no espaço L*a*b*.</span></div>
+        <div class="exp-item"><span class="exp-item-arrow">→</span><span>Construí a API REST (Flask) orquestrando sensor, câmera, IA e motor de receituário.</span></div>
+        <div class="exp-item"><span class="exp-item-arrow">→</span><span>Desenvolvi o aplicativo Android complementar (Kotlin + OpenCV) para captura, zoom e leitura.</span></div>
+      </div>
+      <div class="exp-tags">
+        <span class="tag">Python</span>
+        <span class="tag">Kotlin</span>
+        <span class="tag">PyTorch</span>
+        <span class="tag">Flask</span>
+        <span class="tag">Android</span>
+        <span class="tag">IoT</span>
+        <span class="tag">Raspberry Pi</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects" class="section">
+    <div class="sec-head">
+      <span class="sec-num">04</span>
+      <h2 class="sec-title">Projetos</h2>
+      <div class="sec-line"></div>
+    </div>
+    <div class="proj-list" data-reveal>
+
+      <!-- PROJETO 1: Resale Ledger -->
+      <div class="proj-card">
+        <div class="proj-left">
+          <div class="proj-num">01 / Full-Stack</div>
+          <div class="proj-name">Painel de <br><span class="lime">Vendas</span></div>
+          <div class="proj-stack">Python · Flask · SQLite · HTML/CSS</div>
+          <p class="proj-desc">Aplicação web (Resale Ledger) para registrar vendas e aportes de capital. Calcula receita bruta, lucro líquido e fluxo de caixa, além de plotar gráficos dinâmicos com a evolução do saldo e patrimônio ao longo do tempo.</p>
+        </div>
+        <div class="proj-right">
+          <div>
+            <p style="font-size:.9rem;line-height:1.7;color:rgba(240,240,240,.6);">Idealizado para resolver a necessidade real de controle financeiro de revendas. Construído do back-end ao front-end.</p>
+            <div class="proj-badge">Concluído</div>
+          </div>
+          <div class="proj-links">
+            <a href="https://github.com/mauricio-goulart/resale-ledger" target="_blank" class="proj-link">Ver no GitHub ↗</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROJETO 2: Monitor Marketplace + iOS -->
+      <div class="proj-card">
+        <div class="proj-left">
+          <div class="proj-num">02 / Automação & Mobile</div>
+          <div class="proj-name">Monitor<br><span class="lime">Marketplace</span></div>
+          <div class="proj-stack">Python · Playwright · SwiftUI (iOS) · Telegram · ngrok</div>
+          <p class="proj-desc">Sistema de bots que automatiza a varredura do Facebook Marketplace em busca de oportunidades de compra (jogos e consoles). Envia alertas instantâneos via Telegram ao encontrar boas ofertas.</p>
+        </div>
+        <div class="proj-right">
+          <div>
+            <p style="font-size:.9rem;line-height:1.7;color:rgba(240,240,240,.6);">Integrado a um aplicativo complementar <strong>nativo iOS (SwiftUI)</strong> que se comunica com o script Python utilizando túnel via ngrok.</p>
+            <div class="proj-badge">Automação</div>
+          </div>
+          <div class="proj-links">
+            <a href="https://github.com/mauricio-goulart" target="_blank" class="proj-link">GitHub Profile ↗</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section id="education" class="section">
+    <div class="sec-head">
+      <span class="sec-num">05</span>
+      <h2 class="sec-title">Educação</h2>
+      <div class="sec-line"></div>
+    </div>
+    <div class="edu-list" data-reveal>
+      <div class="edu-item">
+        <div class="edu-year">2023 – dez. 2027</div>
         <div>
-          <p style="font-size:.9rem;line-height:1.7;color:rgba(240,240,240,.6);">Documentação automática via Swagger. Deploy gratuito no Render — qualquer recrutador pode testar o link ao vivo sem instalar nada.</p>
-          <div class="proj-badge">Em construção</div>
-        </div>
-        <div class="proj-links">
-          <a href="https://github.com/mauricio-goulart/vision-api" target="_blank" class="proj-link">GitHub ↗</a>
-          <a href="#" class="proj-link">Demo ↗</a>
+          <div class="edu-degree">Bacharelado em Ciência da Computação (C&T)</div>
+          <div class="edu-school">Universidade Federal de São Paulo (UNIFESP) — ICT</div>
         </div>
       </div>
-    </div>
-
-    <div class="proj-card">
-      <div class="proj-left">
-        <div class="proj-num">02 / Projeto</div>
-        <div class="proj-name">Cotação<br><span class="lime">Moedas</span></div>
-        <div class="proj-stack">Python · Kivy · API de câmbio</div>
-        <p class="proj-desc">App desktop com interface gráfica que consulta cotações de moedas em tempo real via API externa. Primeira interface gráfica completa em Python.</p>
-      </div>
-      <div class="proj-right">
+      <div class="edu-item">
+        <div class="edu-year">2020 – 2022</div>
         <div>
-          <p style="font-size:.9rem;line-height:1.7;color:rgba(240,240,240,.6);">Construído com o framework Kivy para criar uma GUI nativa multiplataforma com Python — sem depender de tecnologias web.</p>
-          <div class="proj-badge">Concluído</div>
-        </div>
-        <div class="proj-links">
-          <a href="https://github.com/mauricio-goulart" target="_blank" class="proj-link">GitHub ↗</a>
+          <div class="edu-degree">Técnico em Desenvolvimento de Sistemas</div>
+          <div class="edu-school">ETEC Ilza Nascimento Pintus · São José dos Campos, SP</div>
         </div>
       </div>
     </div>
+  </section>
 
-  </div>
-</section>
-
-<!-- EDUCATION -->
-<section id="education" class="section">
-  <div class="sec-head">
-    <span class="sec-num">05</span>
-    <h2 class="sec-title">Educação</h2>
-    <div class="sec-line"></div>
-  </div>
-  <div class="edu-list" data-reveal>
-    <div class="edu-item">
-      <div class="edu-year">2023 – dez. 2027</div>
-      <div>
-        <div class="edu-degree">Bacharelado em Ciência e Tecnologia & Ciência da Computação</div>
-        <div class="edu-school">Universidade Federal de São Paulo (UNIFESP) — ICT</div>
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="sec-head" style="margin-bottom:3rem;">
+      <span class="sec-num">06</span>
+      <h2 class="sec-title">Contato</h2>
+      <div class="sec-line"></div>
+    </div>
+    <div class="contact-grid" data-reveal>
+      <div class="contact-cta">Vamos<br>trabalhar<br><span>juntos?</span></div>
+      <div class="contact-links">
+        <a href="https://linkedin.com/in/mauricio-goulart-dev" target="_blank" class="c-link">
+          <div class="c-link-left">
+            <span class="c-link-label">LinkedIn</span>
+            <span class="c-link-val">linkedin.com/in/mauricio-goulart-dev</span>
+          </div>
+          <span class="c-link-arrow">↗</span>
+        </a>
+        <a href="https://github.com/mauricio-goulart" target="_blank" class="c-link">
+          <div class="c-link-left">
+            <span class="c-link-label">GitHub</span>
+            <span class="c-link-val">github.com/mauricio-goulart</span>
+          </div>
+          <span class="c-link-arrow">↗</span>
+        </a>
+        <a href="mailto:mauricio.azevedo@unifesp.br" class="c-link">
+          <div class="c-link-left">
+            <span class="c-link-label">Email</span>
+            <span class="c-link-val">mauricio.azevedo@unifesp.br</span>
+          </div>
+          <span class="c-link-arrow">↗</span>
+        </a>
       </div>
     </div>
-    <div class="edu-item">
-      <div class="edu-year">2020 – 2022</div>
-      <div>
-        <div class="edu-degree">Técnico em Desenvolvimento de Sistemas</div>
-        <div class="edu-school">ETEC Ilza Nascimento Pintus · São José dos Campos, SP</div>
-      </div>
-    </div>
-  </div>
-</section>
+  </section>
 
-<!-- CONTACT -->
-<section id="contact">
-  <div class="sec-head" style="margin-bottom:3rem;">
-    <span class="sec-num">06</span>
-    <h2 class="sec-title">Contato</h2>
-    <div class="sec-line"></div>
-  </div>
-  <div class="contact-grid" data-reveal>
-    <div class="contact-cta">Vamos<br>trabalhar<br><span>juntos?</span></div>
-    <div class="contact-links">
-      <a href="https://linkedin.com/in/mauricio-goulart-dev" target="_blank" class="c-link">
-        <div class="c-link-left">
-          <span class="c-link-label">LinkedIn</span>
-          <span class="c-link-val">linkedin.com/in/mauricio-goulart-dev</span>
-        </div>
-        <span class="c-link-arrow">↗</span>
-      </a>
-      <a href="https://github.com/mauricio-goulart" target="_blank" class="c-link">
-        <div class="c-link-left">
-          <span class="c-link-label">GitHub</span>
-          <span class="c-link-val">github.com/mauricio-goulart</span>
-        </div>
-        <span class="c-link-arrow">↗</span>
-      </a>
-      <a href="mailto:mauricio.azevedo@unifesp.br" class="c-link">
-        <div class="c-link-left">
-          <span class="c-link-label">Email</span>
-          <span class="c-link-val">mauricio.azevedo@unifesp.br</span>
-        </div>
-        <span class="c-link-arrow">↗</span>
-      </a>
-    </div>
-  </div>
-</section>
+  <!-- FOOTER -->
+  <footer>
+    <span class="lime">MAURICIO GOULART</span>
+    <span>© 2024/2025 · Desenvolvido do zero</span>
+  </footer>
 
-<!-- FOOTER -->
-<footer>
-  <span class="lime">MAURICIO GOULART</span>
-  <span>© 2025 · Feito com código</span>
-</footer>
-
-<script>
-const els = document.querySelectorAll('[data-reveal]');
-const obs = new IntersectionObserver(e => e.forEach(x => { if(x.isIntersecting) x.target.classList.add('on'); }), {threshold:.1});
-els.forEach(el => obs.observe(el));
-</script>
+  <!-- Scripts Externos -->
+  <script src="assets/js/main.js"></script>
 </body>
 </html>
